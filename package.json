@@ -4,14 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/*.js --parallel --reporter mochawesome --require mochawesome/register --reporter-options reportDir=D:/Testing/seleniumDemo/reports,reportFilename=testReport"
+    "test-cucumber": "cucumber-js",
+    "test": "mocha tests/*.js --parallel --reporter mochawesome --require mochawesome/register --reporter-options reportDir=D:/Testing/JS_Selenium_Mocha_Framework/reports,reportFilename=testReport"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.3.8",
+    "cucumber": "^6.0.7",
     "mocha": "^10.2.0",
     "mochawesome": "^7.1.3",
     "selenium-webdriver": "^4.12.0"
+  },
+  "devDependencies": {
+    "@types/cucumber": "^7.0.0"
   }
 }

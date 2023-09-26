@@ -1,0 +1,13 @@
+{
+  "entryFilePath": "D:/Testing/Js_Selenium_Mocha_Framework/hooks/beforeHooks.js",
+  "alias": false,
+  "resolveExtensions": [
+    ".js",
+    ".jsx",
+    ".ts",
+    ".tsx",
+    ".vue",
+    ".scss",
+    ".less"
+  ]
+}

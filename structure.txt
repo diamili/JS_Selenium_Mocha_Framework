@@ -1,0 +1,22 @@
+├─ config
+│  └─config.js
+├─ hooks
+│  └─afterHook.js
+|  └─beforeHook.js
+├─ cucumber.js
+├─ pages
+│  └─MainPage.js
+├─ tests
+|   ├─features
+|   |  └─ addToDo.feature
+│   ├─step_definitions
+│      └─ addToDoSteps.js
+├─ reports
+│  ├─ cucumber-report.json
+│  ├─ testReport.html
+│  └─ testReport.json
+└─ utils
+├─ package-lock.json
+├─ package.json
+├─ capabilities.js
+├─ .gitignore
