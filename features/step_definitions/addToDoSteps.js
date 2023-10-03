@@ -1,7 +1,7 @@
+//addToDoSteps.js
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
 const MainPage = require("../pages/MainPage.js");
-//const mainPage = new MainPage(this.driver);
 
 Given("user is on the main page", async function () {
     this.mainPage = new MainPage(this);

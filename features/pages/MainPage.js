@@ -1,5 +1,6 @@
 // MainPage.js
 const { By, Key } = require("selenium-webdriver");
+const env = require("../../config/env.json");
 
 class MainPage {
     constructor() {
@@ -9,7 +10,7 @@ class MainPage {
 
     async navigateToApp() {
         console.log('Navigating to app...');
-        await this.driver.get("https://lambdatest.github.io/sample-todo-app/");
+        await this.driver.get(env.lambdatest);
     }
 
     async addTodo(todoText) {
