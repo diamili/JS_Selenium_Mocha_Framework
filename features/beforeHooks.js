@@ -15,9 +15,9 @@ Before(async function () {
     
     try {
         driver = await new Builder()
-            .usingServer(config.gridUrl)
-            .withCapabilities(ltCapabilities.capabilities)
-            .forBrowser('chrome')
+            // .usingServer(config.gridUrl)
+            // .withCapabilities(ltCapabilities.capabilities)
+            .forBrowser('firefox')
             .build();
 
         // Check if this.driver is successfully initialized
