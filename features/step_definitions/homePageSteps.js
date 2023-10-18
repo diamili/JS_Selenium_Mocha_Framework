@@ -8,9 +8,9 @@ Given("user is on the home page", {timeout: 30000}, async function () {
     await this.homePage.navigateToApp();
 });
 
-Then('user can see {string}', async function (expectedCarouselImage) {
-    const homepage_carouselImage = await this.homePage.findElementOnPage();
-    assert.ok(homepage_carouselImage, `${expectedCarouselImage} not found.`);
+Then('user can see {string}', async function (expectedElement) {
+    const homepage_element = await this.homePage.findElementOnPage();
+    assert.ok(homepage_element, `${expectedElement} not found.`);
 })
 
 Then('user can see different images in {string}', { timeout: 10000 }, async function (expectedCarouselImage) {
@@ -20,16 +20,10 @@ Then('user can see different images in {string}', { timeout: 10000 }, async func
 })
 
 When('user clicks on {string}', async function (elementOnClick) {
-    await this.homePage.closePopUpCoupon()
-    await this.homePage.closeCokiePopUp()
-    const clickedElement = await this.homePage.clickElementOnPage(elementOnClick);
-    if (clickedElement) {
-        await clickedElement.click();
-    }
+    await this.homePage.clickElementOnPage(elementOnClick);
 });
 
-
-Then('user sees the image was changed', () => {
-  // Write code here that turns the phrase above into concrete actions
+Then('user can see new items', async function ()  {
+     await this.homePage.checkForDuplicates()
 })
 
