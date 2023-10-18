@@ -1,6 +1,6 @@
 const { Before } = require("@cucumber/cucumber");
 const { Builder } = require("selenium-webdriver");
-//const chrome = require("selenium-webdriver/chrome");
+const chrome = require("selenium-webdriver/chrome");
 
 let driver;
 
@@ -11,9 +11,15 @@ Before(async function () {
     // options.addArguments('--headless')
     
     try {
+
+        // Set up Chrome options
+        let options = new chrome.Options();
+        options.addArguments('--headless');
+
+        // Create the WebDriver instance with the specified options
         driver = await new Builder()
             .forBrowser('chrome')
-           // .setChromeOptions(options)
+           //.setChromeOptions(options)
             .build();
 
         // Check if this.driver is successfully initialized

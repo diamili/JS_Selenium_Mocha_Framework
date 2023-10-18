@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test-cucumber": "cucumber-js",
+    "test-cucumber": "cucumber-js --tags",
     "test": "mocha tests/*.js --parallel --reporter mochawesome --require mochawesome/register --reporter-options reportDir=D:/Testing/JS_Selenium_Mocha_Framework/reports,reportFilename=testReport"
   },
   "author": "",

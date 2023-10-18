@@ -1,3 +1,15 @@
 {
-    "carousel-image": "//div[@class='carousel-image']"
+    "carousel-image": "//div[starts-with(@class, 'ccc-swiper')]//div[@class='swiper-wrapper']",
+    "carousel-base-image": "//div[@class='carousel-image']//div[@class='swiper-wrapper']//div[@data-swiper-slide-index='2']//img",
+    "carousel-image-swiper-sliders": "//div[@class='carousel-image']//div[@class='swiper-slide']",
+    "carousel-image-swiper-slide-prev": "//div[@class='carousel-image']//div[@class='swiper-slide swiper-slide-prev']",
+    "carousel-image-swiper-slide-active": "//div[@class='carousel-image']//div[@class='swiper-slide swiper-slide-active']//img",
+    "carousel-image-swiper-slide-dublicate": "//div[@class='carousel-image']//div[@class='swiper-slide swiper-slide-duplicate']",
+    "carousel-image-swiper-slide-dublicate-active": "//div[@class='carousel-image']//div[@class='swiper-slide swiper-slide-duplicate-active']",
+    "carousel-image-swiper-slide-dublicate-prev": "//div[@class='carousel-image']//div[@class='swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev']",
+    "carousel-image-swiper-slide-dublicate-next": "//div[@class='carousel-image']//div[@class='swiper-slide swiper-slide-duplicate swiper-slide-next']",
+    "carousel-image-left-arrow-btn": "//div[@class='swiper-button-prev not-fsp-element swiper-button-prev-1']",
+    "carousel-image-right-arrow-btn": "//div[@class='swiper-button-next not-fsp-element swiper-button-next-1']",
+    "pop-up-coupons-close-btn": "//div[@class='c-coupon-box']//i",
+    "coolie-reject-btn": "//button[@id='onetrust-reject-all-handler']"
 }
