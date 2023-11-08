@@ -1,6 +1,8 @@
 {
     "top-product-carousel": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]",
-    "top-product-carousle-elements": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//ul//li",
+    "top-product-carousle-elements": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//ul",
     "top-product-carousel-left-arrow-btn": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//button[1]",
-    "top-product-carousel-right-arrow-btn": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//button[2]"
+    "top-product-carousel-right-arrow-btn": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//button[2]",
+    "top-product-carousel-product-name": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//ul//li//a//div[2]//div[2]",
+    "onetrust-accept-btn-handler": "//button[@id='onetrust-accept-btn-handler']"
 }

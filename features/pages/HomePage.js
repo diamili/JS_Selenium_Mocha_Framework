@@ -2,6 +2,7 @@
 const { By, Key, until} = require("selenium-webdriver");
 const env = require("../../config/env.json");
 const locators = require('../page_locators/otto/otto_HP_locators.json')
+const locators_pdp = require('../page_locators/otto/otto_PDP_locators.json')
 
 
 class HomePage {
@@ -11,16 +12,26 @@ class HomePage {
         this.previousProducts = [];
         console.log('HomePage driver:', this.driver);
     }
+    
 
     async navigateToApp() {
         console.log('Navigating to app...');
         await this.driver.get(env.otto);
+        await this.closeCokiePopUp();
     }
 
-    async findElementOnPage() {
+    async findElementOnPage(expectedElement) {
         console.log('Looking for element...');
         try{
-            const home_page_element = await this.driver.findElement(By.xpath(locators["top-product-carousel"]));
+            const home_page_element = await this.driver.findElement(By.xpath(locators[expectedElement]));
+            const element_value = await home_page_element.getAttribute('class');
+
+            if(element_value){
+                console.log('class name: ', element_value)
+            } else{
+                console.log('data-carousel-mode element not found')
+            }
+
             console.log('Element was found')
             return home_page_element;
         }catch(error){
@@ -29,9 +40,11 @@ class HomePage {
         }
     }
 
-    async clickElementOnPage(elementOnClick, delay = 1000) {
+    async clickElementOnPage(elementOnClick, delay = 2000) {
 
         try {
+            await this.driver.sleep(delay);
+
             const clickableElement = await this.driver.wait(this.driver.findElement(By.xpath(locators[elementOnClick])));
             clickableElement.click();
             console.log('Element was clicked');
@@ -50,7 +63,7 @@ class HomePage {
         for (const product of products) {
             const productText = await product.getText();
             productDetails.push(productText);
-            console.table(productText)
+            //console.table(productText)
         }
     
         return productDetails;
@@ -62,9 +75,9 @@ class HomePage {
 
         for (const product of currentProducts) {
             if (this.previousProducts.includes(product)) {
-                console.log('Duplicate product found:', product);
+                //console.log('Duplicate product found:', product);
             }else{
-                console.table(currentProducts)
+                //console.table(currentProducts)
             }
         }
 
@@ -121,11 +134,46 @@ class HomePage {
        await popUpCloseBtn.click();
     }
 
-    async closeCokiePopUp(){
+    async closeCokiePopUp(delay = 2000){
         // Wait for Cookie popup and close it by clicking reject btn
-       const cookieCloseBtn = await this.driver.wait(until.elementLocated(By.xpath(locators['coolie-reject-btn'])));
-       await cookieCloseBtn.click();
+        try {
+            await this.driver.sleep(delay)
+            const cookieBanner = await this.driver.wait(until.elementLocated(By.xpath(locators['onetrust-accept-btn-handler'])));
+            if (cookieBanner) {
+                cookieBanner.findElement(By.xpath(locators['onetrust-accept-btn-handler'])).click();
+                console.log('CookiePopUp was closed')
+            }
+        } catch (error) {
+            // Handle any errors related to the cookie banner
+            console.log('Error handling cookie banner:', error);
+        }
     }
+
+    // it doesn't work properly on otto.de. It returns product names (text) from all elements.
+    //     async clickRandomElement(){
+
+    //         const productElements = await this.driver.findElements(By.xpath(locators['top-product-carousle-elements']));
+
+    //         const randomIndex = Math.floor(Math.random() * productElements.length);
+
+    //         const selectedProductElement = productElements[randomIndex];
+    //         const selectedProductElement_text_before_click = await selectedProductElement.getAttribute('textContent');
+    //         console.log('Before click text: ', selectedProductElement_text_before_click);
+
+    //         await productElements[randomIndex].click();
+
+    //         const productPageNameElement = await this.driver.findElement(By.xpath(locators_pdp['product_title']));
+
+            
+    //         const productPageName = await productPageNameElement.getText();
+
+        
+    //         if (selectedProductElement_text_before_click === productPageName) {
+    //             console.log('The selected product name matches the name on the product page.');
+    //         } else {
+    //             console.log('The selected product name does not match the name on the product page.');
+    //         }
+    // }
 
 }
 module.exports = HomePage;
