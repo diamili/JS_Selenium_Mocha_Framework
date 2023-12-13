@@ -150,30 +150,32 @@ class HomePage {
     }
 
     // it doesn't work properly on otto.de. It returns product names (text) from all elements.
-    //     async clickRandomElement(){
+        async clickRandomElement(){
+            console.log('getting products elements in carousel')
+            const productElements = await this.driver.findElements(By.xpath(locators['top-product-carousel-product-name']));
 
-    //         const productElements = await this.driver.findElements(By.xpath(locators['top-product-carousle-elements']));
+            console.log('getting random element from carousel')
+            const randomIndex = Math.floor(Math.random() * productElements.length);
 
-    //         const randomIndex = Math.floor(Math.random() * productElements.length);
+            const selectedProductElement = productElements[randomIndex];
+            const selectedProductElement_text_before_click = await selectedProductElement.getAttribute('outerText');
+            console.log('Before click text: ', selectedProductElement_text_before_click);
 
-    //         const selectedProductElement = productElements[randomIndex];
-    //         const selectedProductElement_text_before_click = await selectedProductElement.getAttribute('textContent');
-    //         console.log('Before click text: ', selectedProductElement_text_before_click);
+            await selectedProductElement.click();
+            console.log('element was clicked')
 
-    //         await productElements[randomIndex].click();
-
-    //         const productPageNameElement = await this.driver.findElement(By.xpath(locators_pdp['product_title']));
+            const productPageNameElement = await this.driver.findElement(By.xpath(locators_pdp['product_title']));
 
             
-    //         const productPageName = await productPageNameElement.getText();
+            const productPageName = await productPageNameElement.getText();
 
         
-    //         if (selectedProductElement_text_before_click === productPageName) {
-    //             console.log('The selected product name matches the name on the product page.');
-    //         } else {
-    //             console.log('The selected product name does not match the name on the product page.');
-    //         }
-    // }
+            if (selectedProductElement_text_before_click === productPageName) {
+                console.log('The selected product name matches the name on the product page.');
+            } else {
+                console.log('The selected product name does not match the name on the product page.');
+            }
+    }
 
 }
 module.exports = HomePage;
