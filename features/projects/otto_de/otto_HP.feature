@@ -1,17 +1,18 @@
 @otto
 Feature: As a client, user can see HomePage and interact with all elements on it
   
+  @otto-run-this
   Scenario: User can see product-carousel on home page
     Given user is on the home page
     Then user can see "top-product-carousel"
 
-   @otto-run-this
+  @otto-run-this
   Scenario: User can see product-carousel on home page
     Given user is on the home page
     When user clicks on "top-product-carousel-right-arrow-btn"
     Then user can see new items
 
-    @otto-run-this
+  @otto-run-this
   Scenario: User can click on any product in product-carousel and being navigated to the Product page
     Given user is on the home page
     When user clicks random element
