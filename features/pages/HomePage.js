@@ -1,5 +1,5 @@
 // HomePage.js
-const { By, Key, until} = require("selenium-webdriver");
+const { By, Key, until } = require("selenium-webdriver");
 const env = require("../../config/env.json");
 const locators = require('../page_locators/otto/otto_HP_locators.json')
 const locators_pdp = require('../page_locators/otto/otto_PDP_locators.json')
@@ -10,6 +10,7 @@ class HomePage {
         this.driver = require("../beforeHooks").getDriver(); // Get the driver instance from the World context
         this.previousImageSrc = [];
         this.previousProducts = [];
+        //this.driver.manage().window().maximize();
         console.log('HomePage driver:', this.driver);
     }
     
@@ -87,8 +88,8 @@ class HomePage {
    
     async waitForCarouselImagesToChange() {
         console.log('Starting');
-        const maxAttempts = 30; // Adjust as needed
-        const checkInterval = 3500; // Set the interval to 5 seconds
+        const maxAttempts = 30; 
+        const checkInterval = 3500; 
     
         // Store the initial class and src values
         let initialClass = '';
@@ -98,10 +99,9 @@ class HomePage {
         let hasCompletedCycle = false;
     
         while (attempts < maxAttempts && !hasCompletedCycle) {
-            // Wait for the specified interval
+            
             await this.driver.sleep(checkInterval);
     
-            // Find the image element
             const imageElement = await this.driver.findElement(By.xpath(locators['carousel-image-swiper-slide-active']));
             const currentClass = await imageElement.getAttribute('class');
             const currentSrc = await imageElement.getAttribute('src');
@@ -114,7 +114,6 @@ class HomePage {
                 hasCompletedCycle = true;
             } else {
                 console.log('Images have changed.');
-                // Update the initial values for the next comparison
                 initialClass = currentClass;
                 initialSrc = currentSrc;
                 attempts++;
@@ -129,13 +128,12 @@ class HomePage {
     }
                   
     async closePopUpCoupon(){
-        // Wait for popup Coupon X btn and close it
        const popUpCloseBtn = await this.driver.wait(until.elementLocated(By.xpath(locators['pop-up-coupons-close-btn'])));
        await popUpCloseBtn.click();
     }
 
-    async closeCokiePopUp(delay = 2000){
-        // Wait for Cookie popup and close it by clicking reject btn
+    async closeCokiePopUp(delay = 100){
+        
         try {
             await this.driver.sleep(delay)
             const cookieBanner = await this.driver.wait(until.elementLocated(By.xpath(locators['onetrust-accept-btn-handler'])));
@@ -144,33 +142,37 @@ class HomePage {
                 console.log('CookiePopUp was closed')
             }
         } catch (error) {
-            // Handle any errors related to the cookie banner
             console.log('Error handling cookie banner:', error);
         }
     }
 
-    // it doesn't work properly on otto.de. It returns product names (text) from all elements.
         async clickRandomElement(){
+
             console.log('getting products elements in carousel')
             const productElements = await this.driver.findElements(By.xpath(locators['top-product-carousel-product-name']));
 
             console.log('getting random element from carousel')
             const randomIndex = Math.floor(Math.random() * productElements.length);
 
-            const selectedProductElement = productElements[randomIndex];
-            const selectedProductElement_text_before_click = await selectedProductElement.getAttribute('outerText');
-            console.log('Before click text: ', selectedProductElement_text_before_click);
+            const randomSelectedProductFromCarousel = productElements[randomIndex];
+            const randomSelectedProductFromCarousel_name = await randomSelectedProductFromCarousel.getAttribute('outerText');
+            console.log('Product name in product carousel: ', randomSelectedProductFromCarousel_name);
+           
+            // Scroll the product carousel to make the selected product visible
+            await this.driver.executeScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });", randomSelectedProductFromCarousel);
 
-            await selectedProductElement.click();
-            console.log('element was clicked')
+            await this.driver.sleep(500);
+            await randomSelectedProductFromCarousel.click();
 
-            const productPageNameElement = await this.driver.findElement(By.xpath(locators_pdp['product_title']));
+            await this.driver.sleep(1000);
+            const productPDP_name = await this.driver.findElement(By.xpath(locators_pdp['product_title']));
 
             
-            const productPageName = await productPageNameElement.getText();
+            const productPageName = await productPDP_name.getText();
+            console.log('Product name on PDP: ', productPageName)
 
         
-            if (selectedProductElement_text_before_click === productPageName) {
+            if (productPageName.includes(randomSelectedProductFromCarousel_name)) {
                 console.log('The selected product name matches the name on the product page.');
             } else {
                 console.log('The selected product name does not match the name on the product page.');
