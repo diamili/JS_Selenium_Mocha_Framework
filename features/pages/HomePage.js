@@ -3,6 +3,7 @@ const { By, Key, until } = require("selenium-webdriver");
 const env = require("../../config/env.json");
 const locators = require('../page_locators/otto/otto_HP_locators.json')
 const locators_pdp = require('../page_locators/otto/otto_PDP_locators.json')
+const locators_indeed = require('../page_locators/indeed/indeed_HP_locators.json')
 
 
 class HomePage {
@@ -177,7 +178,63 @@ class HomePage {
             } else {
                 console.log('The selected product name does not match the name on the product page.');
             }
-    }
+        }
+
+        async jobSeekerIsLookingForJob(searchterm){
+                
+                const searchInput = await this.driver.findElement(By.xpath(locators_indeed['search_input']));
+                await searchInput.sendKeys(searchterm, Key.ENTER);
+                
+                console.log('Getting jobs...');
+                const search_result_prodcuts = await this.driver.findElements(By.xpath(locators_indeed['search_result_jobs']));
+                console.log('List of products:', search_result_prodcuts.length);
+
+                for (const job of search_result_prodcuts) {
+                    //await this.scrollIntoView(job);
+                    await job.click();
+                    
+                    const jobDescription = await this.driver.wait(until.elementLocated(By.xpath(locators_indeed['job_decription'])));
+        
+                    try {
+                        const descriptionText = await jobDescription.getText();
+                        if (descriptionText.includes('Deutsch') || descriptionText.includes('Deutschkenntnisse')) {
+                            const currentURL = await this.driver.getCurrentUrl();
+                            console.log('This job contains the term "Deutch" or "Deutschkenntnisse". Current URL:', currentURL);
+                        } else {;
+                            const currentURL = await this.driver.getCurrentUrl();
+                            console.log('This job does not contain the term "Deutch" or "Deutschkenntnisse". Current URL:', currentURL);
+                        }
+        
+                        // Check for the presence of the popup
+                        const mosaicPopups = await this.driver.findElements(By.xpath(locators_indeed['mosaic-popup']));
+                        if (mosaicPopups.length > 0) {
+                            await mosaicPopups[0].click();
+                            console.log('Closed mosaic popup');
+                        } else {
+                            console.log('No mosaic popup');
+                        }
+                    } catch (error) {
+                        console.error('Error during job processing or popup handling: ', error);
+                    }
+                 }
+                    
+
+        }
+
+        async scrollIntoView(element) {
+            try {
+                await this.driver.executeScript('arguments[0].scrollIntoView({ behavior: "smooth", block: "center" });', element);
+            } catch (error) {
+                console.error('Error scrolling into view:', error);
+            }
+        }
+
+        async scrollPageDown() {
+            // Scroll to the bottom of the page
+            await this.driver.executeScript('window.scrollTo(0, document.body.scrollHeight);');
+            await this.driver.sleep(1000)
+            await this.driver.executeScript('window.scrollTo(0, 0);');
+        }
 
 }
 module.exports = HomePage;

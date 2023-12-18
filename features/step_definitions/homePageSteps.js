@@ -29,3 +29,7 @@ When('user clicks random element', async function ()  {
     await this.homePage.clickRandomElement();
 })
 
+Then('user searches {string}', async function(searchterm) {
+    await this.homePage.jobSeekerIsLookingForJob(searchterm);
+})
+
