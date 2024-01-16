@@ -1,6 +1,5 @@
 const { After } = require("@cucumber/cucumber");
 
-
 console.log("afterHooks.js is being executed.");
 
 After(async function () {

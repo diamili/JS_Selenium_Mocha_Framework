@@ -180,47 +180,97 @@ class HomePage {
             }
         }
 
-        async jobSeekerIsLookingForJob(searchterm){
+        // async jobSeekerIsLookingForJob(searchterm){
                 
-                const searchInput = await this.driver.findElement(By.xpath(locators_indeed['search_input']));
-                await searchInput.sendKeys(searchterm, Key.ENTER);
+        //         const searchInput = await this.driver.findElement(By.xpath(locators_indeed['search_input']));
+        //         await searchInput.sendKeys(searchterm, Key.ENTER);
+        //         await this.driver.sleep(2000)
                 
-                console.log('Getting jobs...');
-                const search_result_prodcuts = await this.driver.findElements(By.xpath(locators_indeed['search_result_jobs']));
-                console.log('List of products:', search_result_prodcuts.length);
+        //         console.log('Getting jobs...');
+        //         const search_result_prodcuts = await this.driver.findElements(By.xpath(locators_indeed['search_result_jobs']));
+        //         console.log('List of products:', search_result_prodcuts.length);
 
-                for (const job of search_result_prodcuts) {
-                    //await this.scrollIntoView(job);
-                    await job.click();
+        //         for (const job of search_result_prodcuts) {
+        //             //await this.scrollIntoView(job);
+        //             await job.click();
                     
-                    const jobDescription = await this.driver.wait(until.elementLocated(By.xpath(locators_indeed['job_decription'])));
+        //             try {
+        //                 const jobDescription = await this.driver.wait(until.elementLocated(By.xpath(locators_indeed['job_decription'])));
         
-                    try {
-                        const descriptionText = await jobDescription.getText();
-                        if (descriptionText.includes('Deutsch') || descriptionText.includes('Deutschkenntnisse')) {
-                            const currentURL = await this.driver.getCurrentUrl();
-                            console.log('This job contains the term "Deutch" or "Deutschkenntnisse". Current URL:', currentURL);
-                        } else {;
-                            const currentURL = await this.driver.getCurrentUrl();
-                            console.log('This job does not contain the term "Deutch" or "Deutschkenntnisse". Current URL:', currentURL);
-                        }
+        //                 const descriptionText = await jobDescription.getText();
+        //                 if (descriptionText.includes('Deutsch') || descriptionText.includes('Deutschkenntnisse')) {
+        //                     const currentURL = await this.driver.getCurrentUrl();
+        //                     console.log('This job contains the term "Deutsch" or "Deutschkenntnisse". Current URL:', currentURL);
+        //                 } else {
+        //                     const currentURL = await this.driver.getCurrentUrl();
+        //                     console.log('This job does not contain the term "Deutsch" or "Deutschkenntnisse". Current URL:', currentURL);
+        //                 }
         
-                        // Check for the presence of the popup
-                        const mosaicPopups = await this.driver.findElements(By.xpath(locators_indeed['mosaic-popup']));
-                        if (mosaicPopups.length > 0) {
-                            await mosaicPopups[0].click();
-                            console.log('Closed mosaic popup');
-                        } else {
-                            console.log('No mosaic popup');
-                        }
-                    } catch (error) {
-                        console.error('Error during job processing or popup handling: ', error);
-                    }
-                 }
+        //                 // Check for the presence of the popup
+        //                 const mosaicPopups = await this.driver.findElements(By.xpath(locators_indeed['mosaic-popup']));
+        //                 if (mosaicPopups.length > 0) {
+        //                     await mosaicPopups[0].click();
+        //                     console.log('Closed mosaic popup');
+        //                 } else {
+        //                     console.log('No mosaic popup');
+        //                 }
+        //             } catch (error) {
+        //                 console.error('Error during job processing or popup handling: ', error);
+        //             }
+        //          }
                     
 
-        }
+        // }
 
+        // async jobSeekerIsLookingForJob(searchterm) {
+        //     try {
+        //         const searchInput = await this.driver.wait(until.elementLocated(By.xpath(locators_indeed['search_input'])));
+        //         console.log('Typing search term...', searchterm);
+        //         await searchInput.sendKeys(searchterm, Key.ENTER);
+        
+        //         await this.driver.sleep(2000); // Подождать некоторое время после ввода данных
+        
+        //         console.log('Getting jobs...');
+        //         await this.driver.wait(until.elementLocated(By.xpath(locators_indeed['search_result_jobs'])));
+        
+        //         const searchResultProducts = await this.driver.findElements(By.xpath(locators_indeed['search_result_jobs']));
+        //         console.log('List of products:', searchResultProducts.length);
+        
+        //         for (const job of searchResultProducts) {
+        //             try {
+        //                 await job.click();
+        //                 console.log('job was clicked');
+        
+        //                 const jobDescription = await this.driver.wait(until.elementLocated(By.xpath(locators_indeed['job_description'])));
+        //                 const descriptionText = await jobDescription.getText();
+        
+        //                 if (descriptionText.includes('Deutsch') || descriptionText.includes('Deutschkenntnisse')) {
+        //                     const currentURL = await this.driver.getCurrentUrl();
+        //                     console.log('This job contains the term "Deutch" or "Deutschkenntnisse". Current URL:', currentURL);
+        //                 } else {
+        //                     const currentURL = await this.driver.getCurrentUrl();
+        //                     console.log('This job does not contain the term "Deutch" or "Deutschkenntnisse". Current URL:', currentURL);
+        //                 }
+        
+        //                 const mosaicPopups = await this.driver.findElements(By.xpath(locators_indeed['mosaic-popup']));
+        
+        //                 if (mosaicPopups.length > 0) {
+        //                     await mosaicPopups[0].click();
+        //                     console.log('Closed mosaic popup');
+        //                 } else {
+        //                     console.log('No mosaic popup');
+        //                 }
+        
+        //             } catch (error) {
+        //                 console.error('Error during job processing or popup handling: ', error);
+        //             }
+        //         }
+        //     } catch (error) {
+        //         console.error('Error occurred during job search: ', error);
+        //     }
+        // }
+        
+        
         async scrollIntoView(element) {
             try {
                 await this.driver.executeScript('arguments[0].scrollIntoView({ behavior: "smooth", block: "center" });', element);
