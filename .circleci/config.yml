@@ -27,7 +27,7 @@ jobs:
           command: docker-compose -f docker-compose.yml up -d
       - run:
           name: Run Tests
-          command: npm run test  # or whatever your test command is
+          command: npm run test-cucumber @otto-run-this  # or whatever your test command is
       - run:
           name: Stop Selenium Grid
           command: docker-compose -f docker-compose.yml down
