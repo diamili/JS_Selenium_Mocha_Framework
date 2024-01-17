@@ -20,8 +20,10 @@ jobs:
           name: Install Node.js and npm
           command: |
             curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-            sudo apt-get install -y nodejs
-            sudo apt-get install -y npm
+            sudo apt-get update
+            sudo apt-get -f install
+            sudo apt-get install node-agent-base
+            sudo apt-get install npm
 
       - run:
           name: Build images of services declared in docker-compose.yml
