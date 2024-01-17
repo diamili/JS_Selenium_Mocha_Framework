@@ -24,6 +24,11 @@ jobs:
             # sudo apt-get -f install
             # sudo apt-get install node-agent-base
             # sudo apt-get install npm
+            
+       # Set the SELENIUM_HUB_URL environment variable
+      - run:
+          name: Set Selenium Hub URL
+          command: echo "export SELENIUM_HUB_URL=http://selenium-hub:4444/wd/hub" >> $BASH_ENV
 
       - run:
           name: Build images of services declared in docker-compose.yml
