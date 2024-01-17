@@ -2,29 +2,26 @@ version: 2
 jobs:
   build:
     docker:
-      - image: selenium/standalone-chrome
+      - image: selenium/hub:4.16.1-20231219
     steps:
       - checkout
-
-      # Add this step to install Docker Compose in the CircleCI environment
-      - run:
-          name: Install Docker Compose
-          environment:
-            COMPOSE_VERSION: '1.29.2'
-          command: |
-            curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
       # Print Docker Compose version (optional for verification)
       - run:
           name: Verify Docker Compose
-          command: docker-compose --version
+          command: /usr/local/bin/docker-compose --version
+
+      - setup_remote_docker
+
+      - run:
+          name: Build images of services declared in docker-compose.yml
+          command: docker-compose build
+
 
       # Continue with your existing steps
       - run:
           name: Start Selenium Grid
-          command: docker-compose -f docker-compose.yml up -d
+          command: docker-compose -f docker-compose.yml up
       - run:
           name: Run Tests
           command: npm run test  # or whatever your test command is
