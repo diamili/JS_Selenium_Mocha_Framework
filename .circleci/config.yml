@@ -24,7 +24,7 @@ jobs:
       # Continue with your existing steps
       - run:
           name: Start Selenium Grid
-          command: docker-compose -f docker-compose.yml up
+          command: docker-compose -f docker-compose.yml up -d
       - run:
           name: Run Tests
           command: npm run test  # or whatever your test command is
