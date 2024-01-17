@@ -17,6 +17,13 @@ jobs:
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
       - run:
+          name: Install Node.js and npm
+          command: |
+            curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            sudo apt-get install -y npm
+
+      - run:
           name: Build images of services declared in docker-compose.yml
           command: docker-compose build
 
