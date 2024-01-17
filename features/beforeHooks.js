@@ -4,9 +4,6 @@ const chrome = require("selenium-webdriver/chrome");
 const firefox = require("selenium-webdriver/firefox");
 const seleniumConfig = require("../seleniumConfig"); // Adjust the path based on your project structure
 
-
-//const hubUrl = 'http://localhost:4444/wd/hub';
-
 let driver;
 
 // Before(async function () {   
@@ -76,9 +73,9 @@ Before( async function () {
     try {
         console.log('Selenium Hub URL:', seleniumConfig.hubUrl);
         // Initialize Chrome or Firefox based on your requirements
-        //driver = await initializeChrome();
+        driver = await initializeChrome();
         // Or use the following line to initialize Firefox
-        driver = await initializeFirefox();
+        //driver = await initializeFirefox();
 
         if (driver) {
             console.log('WebDriver initialized successfully.');
