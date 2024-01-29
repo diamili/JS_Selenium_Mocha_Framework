@@ -1,8 +1,16 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
+const assert = require('assert');
+const { Given, When, Then } = require('@cucumber/cucumber');
+const HomePage = require("../features/pages/HomePage");
+const env = require("../config/env.json");
+const locators = require('../features/page_locators/otto/otto_HP_locators.json')
+const locators_pdp = require('../features/page_locators/otto/otto_PDP_locators.json')
+const locators_indeed = require('../features/page_locators/indeed/indeed_HP_locators.json')
+
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('https://demo.playwright.dev/todomvc');
+  await page.goto(env.otto);
 });
 
 const TODO_ITEMS = [
@@ -10,6 +18,38 @@ const TODO_ITEMS = [
   'feed the cat',
   'book a doctors appointment'
 ];
+
+// test1 OTTO
+test.describe('Home page carousel is available', () => {
+    test('user can see the home page carousel with Empfehlungen für dich title', async ({page}) =>{
+      await expect(page.getByRole('heading', { name: 'Empfehlungen für dich' })).toBeVisible();
+    })
+
+    test('user can click on product and being naviagted to the relevant page', async({page}) => {
+      const carousel = await page.locator('xpath=' + locators['top-prosuct-carousel-items-li']);
+
+      console.log('getting random element from carousel');
+      const elements = await carousel.all();
+    
+      const randomElementIndex = Math.floor(Math.random() * elements.length);
+      const randomElement = elements[randomElementIndex];
+
+      const randomElementName = await randomElement.textContent();
+      console.log('product name: ', randomElementName);
+
+      await randomElement.click();
+
+      const productName = await page.locator('xpath=' + locators_pdp['product_title'])
+
+      const productName_text = await productName.innerText();
+      console.log('PDP product name: ', productName_text);
+
+      expect(randomElementName).toEqual(expect.stringContaining(productName_text))
+    }
+    )
+
+})
+
 
 test.describe('New Todo', () => {
   test('should allow me to add todo items', async ({ page }) => {
