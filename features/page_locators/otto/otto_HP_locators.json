@@ -3,7 +3,10 @@
     "top-product-carousle-elements": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//ul",
     "top-product-carousel-left-arrow-btn": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//button[1]",
     "top-product-carousel-right-arrow-btn": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//button[2]",
-    "top-product-carousel-product-name": "(//ul[@class='reco_cinema__tiles pl_carousel__stage svelte-15kpv7t'])[1]//*[contains(@class, 'name')]",
+    "top-product-carousel-product-name": "(//*[@data-carousel-mode='cinema']//ul)[2]//li//*[contains(@class, 'reco_cinema__name')]",
     "onetrust-accept-btn-handler": "//button[@id='onetrust-accept-btn-handler']",
-    "top-prosuct-carousel-items-li": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//ul//li"
+    "top-prosuct-carousel-items-li": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//ul//li",
+    "top-product-carousel-product-images": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//*[@data-testid='image-title']",
+    "top-product-carousel-product-price-line-through": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//span[contains(@class, 'price-line-through')]",
+    "top-product-carousel-product-price-red": "(//div[@class='reco_entrypage_skeleton_injection_container']//div[@data-carousel-mode='cinema'])[1]//span[contains(@class, 'price-red')]"
 }

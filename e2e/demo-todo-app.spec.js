@@ -21,9 +21,36 @@ const TODO_ITEMS = [
 
 // test1 OTTO
 test.describe('Home page carousel is available', () => {
+  
     test('user can see the home page carousel with Empfehlungen für dich title', async ({page}) =>{
       await expect(page.getByRole('heading', { name: 'Empfehlungen für dich' })).toBeVisible();
     })
+
+    test('user can see product details', async ({page}) => {
+
+      await page.getByRole('button', { name: 'Ok' }).click();
+
+      const carousel = await page.locator('xpath=' + locators['top-prosuct-carousel-items-li']);
+      const elements = await carousel.locator('xpath=' + locators['top-product-carousel-product-name']).all()
+      console.log('Number of elements: ' + elements.length)
+
+      for (const item of elements) {
+        const productName = await item.innerText();
+        const productImg = await item.locator('xpath=' + locators['top-product-carousel-product-images']).first();
+        const productPriceLineThrough = await item.locator('xpath=' + locators['top-product-carousel-product-price-line-through']).first();
+        const productPriceRed = await item.locator('xpath=' + locators['top-product-carousel-product-price-red']).first();
+        
+        const productImgSrc = await productImg.getAttribute('src')
+        const priceLineThrough = await productPriceLineThrough.innerText();
+        const priceRed = await productPriceRed.innerText();
+    
+        console.log('Product name:', productName);
+        console.log('Product img:', productImgSrc);
+        console.log('Contains price (line-through):' , !!priceLineThrough);
+        console.log('Contains price (red):', !!priceRed);
+      }
+      }
+    )
 
     test('user can click on product and being naviagted to the relevant page', async({page}) => {
       const carousel = await page.locator('xpath=' + locators['top-prosuct-carousel-items-li']);
