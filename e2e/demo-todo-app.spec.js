@@ -6,11 +6,12 @@ const HomePage = require("../features/pages/HomePage");
 const env = require("../config/env.json");
 const locators = require('../features/page_locators/otto/otto_HP_locators.json')
 const locators_pdp = require('../features/page_locators/otto/otto_PDP_locators.json')
-const locators_indeed = require('../features/page_locators/indeed/indeed_HP_locators.json')
+const locators_indeed = require('../features/page_locators/indeed/indeed_HP_locators.json');
+const { url } = require('inspector');
 
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(env.otto);
+  await page.goto(env.indeed);
 });
 
 const TODO_ITEMS = [
@@ -18,6 +19,61 @@ const TODO_ITEMS = [
   'feed the cat',
   'book a doctors appointment'
 ];
+
+
+test.describe('As a user, I can find all QA jobs with no required German language skills', () => {
+  const processJobs = async (page) => {
+    const jobs = await page.locator('xpath=' + locators_indeed['search_result_jobs']).all();
+    console.log('Number of jobs:', jobs.length);
+
+    for (const job of jobs) {
+      await job.click();
+
+      await page.waitForSelector('#jobDescriptionText');
+      const jobDescription = await page.$('#jobDescriptionText');
+      const jobDescriptionText = jobDescription ? await jobDescription.innerText() : null;
+
+      if (
+        jobDescriptionText !== null &&
+        jobDescriptionText !== undefined &&
+        jobDescriptionText.includes('Deutsch', 'German', 'Deutschkenntnisse')
+      ) {
+        const url = await page.url();
+        console.log('Job requires Deutsch URL:', url);
+      } else {
+        const url = await page.url();
+        console.log('URL:', url);
+      }
+    }
+  };
+
+  test('User can find all QA jobs with no required German language skills', async ({ page }) => {
+    await page.getByText('Alle Cookies akzeptieren').click();
+    console.log('Popup is closed');
+
+    await page.locator('#text-input-what').fill('Software Tester');
+    await page.getByText('Jobs finden').press('Enter');
+    console.log('ENTER is clicked');
+
+  
+    await page.waitForSelector('xpath=' + locators_indeed['search_result_jobs']);
+
+    await processJobs(page);
+
+    await page.getByTestId('pagination-page-2').click();
+    console.log('Pagination btn is clicked');
+
+    await page.waitForSelector('.css-yi9ndv.e8ju0x51');
+
+    await page.click('.css-yi9ndv.e8ju0x51');
+
+    await page.waitForSelector('xpath=' + locators_indeed['search_result_jobs']);
+
+    await processJobs(page);
+  });
+});
+
+
 
 // test1 OTTO
 test.describe('Home page carousel is available', () => {
