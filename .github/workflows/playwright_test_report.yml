@@ -13,6 +13,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Install browsers
+      run: npx playwright install
+
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
@@ -22,7 +25,9 @@ jobs:
       run: npm install
 
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --browser=$PW_BROWSER
+      env:
+        PW_BROWSER: chromium
 
     - name: Install Allure Command Line
       run: |
