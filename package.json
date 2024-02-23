@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cucumber/cucumber": "^10.3.1",
     "chai": "^4.3.8",
     "cucumber": "^6.0.7",
     "mocha": "^10.2.0",
