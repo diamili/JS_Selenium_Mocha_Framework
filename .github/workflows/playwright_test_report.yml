@@ -25,7 +25,7 @@ jobs:
       run: npm install
 
     - name: Run Playwright tests
-      run: npx playwright test --browser=$PW_BROWSER
+      run: npx playwright test
       env:
         PW_BROWSER: chromium
 
