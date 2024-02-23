@@ -3,7 +3,7 @@ name: Run Playwright Tests and Generate Allure Report
 on:
   push:
     branches:
-      - main
+      - '*'
 
 jobs:
   test:
