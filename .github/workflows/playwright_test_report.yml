@@ -36,7 +36,7 @@ jobs:
     - name: Generate Allure Report
       run: |
         allure generate --clean
-        allure open
+        allure open --no-timestamp
 
     - name: Upload Allure Report
       uses: actions/upload-artifact@v2
