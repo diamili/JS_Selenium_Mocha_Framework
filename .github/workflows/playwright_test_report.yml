@@ -29,6 +29,9 @@ jobs:
       env:
         PW_BROWSER: chromium
 
+    - name: Install Allure Command Line
+      run: npm install -g allure-commandline
+  
     - name: Generate Allure Report
       run: |
         npx allure generate --clean
