@@ -29,23 +29,7 @@ jobs:
       env:
         PW_BROWSER: chromium
 
-    - name: Install Allure Command Line
-      run: |
-        npm install -g allure-commandline
-
-    - name: Create allure-results directory
-      run: mkdir allure-results
-
-    - name: Check allure-results directory
-      run: ls -l allure-results
-      
     - name: Generate Allure Report
       run: |
-        allure generate --clean
-        allure open --port 8080
-
-    - name: Upload Allure Report
-      uses: actions/upload-artifact@v2
-      with:
-        name: allure-report
-        path: allure-report
+        npx allure generate --clean
+        npx allure open --port 8080
