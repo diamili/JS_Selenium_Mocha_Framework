@@ -35,4 +35,4 @@ jobs:
     - name: Generate Allure Report
       run: |
         npx allure generate --clean
-        npx allure open --port 8080
+        npx allure open --port 8888
