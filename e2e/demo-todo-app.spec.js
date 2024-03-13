@@ -7,12 +7,13 @@ const env = require("../config/env.json");
 const locators = require('../features/page_locators/otto/otto_HP_locators.json')
 const locators_pdp = require('../features/page_locators/otto/otto_PDP_locators.json')
 const locators_indeed = require('../features/page_locators/indeed/indeed_HP_locators.json');
+const locators_stepstone = require('../features/page_locators/stepstone/stepstone.json')
 const { url } = require('inspector');
 
 
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(env.indeed);
+  await page.goto(env.stepstone);
 });
 
 const TODO_ITEMS = [
@@ -24,7 +25,7 @@ const TODO_ITEMS = [
 
 test.describe('As a user, I can find all QA jobs with no required German language skills', () => {
   const processJobs = async (page) => {
-    const jobs = await page.locator('xpath=' + locators_indeed['search_result_jobs']).all();
+    const jobs = await page.locator('xpath=' + locators_stepstone['search_result_jobs']).all();
     console.log('Number of jobs:', jobs.length);
 
     for (const job of jobs) {
@@ -35,9 +36,10 @@ test.describe('As a user, I can find all QA jobs with no required German languag
   
       while (attempts < maxAttempts) {
         try {
-          if (!page.isClosed()) { // Check if the page is still open
-            await page.waitForSelector('#jobDescriptionText', { timeout: 10000 }); // 10 seconds timeout
-            break; // Exit the loop if waitForSelector succeeds
+          if (!page.isClosed()) { 
+            //await page.waitForSelector('#jobDescriptionText', { timeout: 10000 });  indeed
+            await page.locator(('xpath=' + locators_stepstone['job_decription']), { timeout: 10000 }); 
+            break; 
           } else {
             console.error('Page has been closed.');
             return;
@@ -45,11 +47,12 @@ test.describe('As a user, I can find all QA jobs with no required German languag
         } catch (error) {
           console.error(`Error waiting for selector (Attempt ${attempts + 1}):`, error);
           attempts++;
-          await page.waitForTimeout(2000); // 2 seconds delay before retrying
+          await page.waitForTimeout(2000);
         }
       }
   
-      const jobDescription = await page.$('#jobDescriptionText');
+      //const jobDescription = await page.$('#jobDescriptionText');
+      const jobDescription = await page.locator('xpath=' + locators_stepstone['job_decription'])
       const jobDescriptionText = jobDescription ? await jobDescription.innerText() : null;
   
       if (
@@ -67,15 +70,18 @@ test.describe('As a user, I can find all QA jobs with no required German languag
   };
 
   test('User can find all QA jobs with no required German language skills', async ({ page }) => {
-    await page.getByText('Alle Cookies akzeptieren').click();
-    console.log('Popup is closed');
+    //await page.getByText('Alle Cookies akzeptieren').click(); passed fur indeed
+    //console.log('Popup is closed'); passed fur indeed
+    await page.getByText('Alles akzeptieren').click(); 
+    console.log('Popup is closed'); 
 
-    await page.locator('#text-input-what').fill('Software Tester');
+    //await page.locator('#text-input-what').fill('Software Tester'); passed fur indeed
+    await page.locator('xpath=' + locators_stepstone['search_input']).fill('Software Tester');
     await page.getByText('Jobs finden').press('Enter');
     console.log('ENTER is clicked');
 
   
-    await page.waitForSelector('xpath=' + locators_indeed['search_result_jobs']);
+    await page.waitForSelector('xpath=' + locators_stepstone['search_result_jobs']);
 
     await processJobs(page);
 
