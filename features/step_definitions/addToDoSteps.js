@@ -16,5 +16,3 @@ Then("user should see last todo with text {string}", async function (expectedTex
     const lastTodoText = await this.mainPage.getLastTodoText();
     assert.strictEqual(lastTodoText, expectedText);
 });
-
-//testing webhook

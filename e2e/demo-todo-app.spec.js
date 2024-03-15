@@ -58,10 +58,10 @@ test.describe('As a user, I can find all QA jobs with no required German languag
         jobDescriptionText.includes('Deutsch', 'German', 'Deutschkenntnisse')
       ) {
         const url = await page.url();
-        console.log('Job requires Deutsch URL:', url);
+        console.log('Job requires German language URL:', url);
       } else {
         const url = await page.url();
-        console.log('URL:', url);
+        console.log('Job dos not requires German language URL:', url);
       }
     }
   };
