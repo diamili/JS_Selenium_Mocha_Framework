@@ -1,6 +1,0 @@
-{
-    "search_input": "//input[@name='q']",
-    "search_result_jobs": "//div[@data-testid='slider_item']",
-    "job_decription": "//div[@id='jobDescriptionText']",
-    "mosaic-popup": "//div[@id='mosaic-afterFifthJobResult']//button[@aria-label='Fenster schließen']"
-}

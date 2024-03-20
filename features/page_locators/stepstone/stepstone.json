@@ -1,5 +1,0 @@
-{
-    "search_input": "//input[@data-at='searchbar-keyword-input']",
-    "search_result_jobs": "(//div[@class='res-vurnku'])[35]",
-    "job_decription": "(//div[@class='job-ad-display-1fa99ag'])[1]"
-}
