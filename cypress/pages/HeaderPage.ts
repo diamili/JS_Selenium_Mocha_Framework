@@ -1,35 +1,44 @@
 import { BasePage } from './BasePage';
+import { project } from '../support/beforeHooks';
+
+interface Locators {
+  [key: string]: string;
+}
 
 export class HeaderPage extends BasePage {
-  // Selector for the logo element in the header
-  private readonly logoSelector: string = '.header-logo';
 
-  // Selector for the login link in the header
-  private readonly loginLinkSelector: string = '.login-link';
+  private readonly locators: Locators;
 
-  // Selector for the user profile dropdown in the header
-  private readonly userProfileDropdownSelector: string = '.user-profile-dropdown';
+  constructor() {
+    super();
+  
+    switch (project) {
+      case 'otto':
+        this.locators = require('../fixtures/OTTO/locators/OTTO_Header_locators.json');
+        break;
+      case 'shein':
+        this.locators = require('../fixtures/shein/locators/Shein_Header_locators.json');
+        break;
+      default:
+        // Handle the case when project is neither 'otto' nor 'shein'
+        throw new Error(`Unknown project: ${project}`);
+    }
+  }
 
-  // Method to click on the logo and navigate to the homepage
   clickLogo() {
-    cy.get(this.logoSelector).click();
+    cy.get(this.locators['logo']).click();
   }
 
-  // Method to click on the login link and navigate to the login page
-  clickLoginLink() {
-    cy.get(this.loginLinkSelector).click();
+  existLogo(){
+    cy.get(this.locators['logo']).should('exist');
   }
+  // openUserProfileDropdown() {
+  //   cy.get(this.userProfileDropdownSelector).click();
+  // }
 
-  // Method to open the user profile dropdown
-  openUserProfileDropdown() {
-    cy.get(this.userProfileDropdownSelector).click();
-  }
+  // logout() {
+  //   this.openUserProfileDropdown();
+  //   cy.contains('Logout').click();
+  // }
 
-  // Method to log out from the application
-  logout() {
-    this.openUserProfileDropdown();
-    cy.contains('Logout').click();
-  }
-
-  // Other methods related to the header functionality can be added as needed
 }

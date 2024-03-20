@@ -1,0 +1,7 @@
+{
+    "logo": ".find_ottoLogo a svg",
+    "serach-field": ".squirrel_searchfield",
+    "search-icon": ".squirrel_submit-button.svelte-146qonh svg.svelte-146qonh",
+    "onetrust-accept-btn-handler": "#onetrust-consent-sdk #onetrust-banner-sdk #onetrust-button-group #onetrust-accept-btn-handler",
+    "user-account-icon": ""
+}

@@ -1,0 +1,6 @@
+{
+    "logo": ".c-header2 .header-wrap .header-logo>a",
+    "serach-field": ".c-header2 .header-search .header-search-input",
+    "search-icon": ".c-header2 .header-search .search-btn .sui_icon_nav_search_24px",
+    "user-account-icon": ""
+}
