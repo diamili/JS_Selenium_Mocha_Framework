@@ -10,7 +10,7 @@ const projectIdentifier = projectUrl.includes('otto') ? 'otto' : 'shein';
 export const project: string = projectIdentifier;
 
 beforeEach(() => {
-  homePage.visitHomePage(project); 
+  homePage.visitHomePage(projectUrl); 
 
   // cy.get(locators_homepage['onetrust-accept-btn-handler']).click();
   // cy.log('cookie pop-up has been closed');

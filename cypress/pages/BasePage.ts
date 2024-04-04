@@ -3,12 +3,16 @@ export class BasePage {
   
     // Method to visit a specific page by appending its path to the base URL
     visitPage(pagePath: string) {
-      const fullUrl = this.baseUrl.endsWith('/') ? this.baseUrl.slice(0, -1) : this.baseUrl;
-      const formattedPagePath = pagePath.startsWith('/') ? pagePath.slice(1) : pagePath;
-      const url = `${fullUrl}/${formattedPagePath}`;
-      cy.visit(url);
+      cy.visit(`${this.baseUrl}${pagePath}`);
     }
   
+    // visitPage(pagePath: string) {
+    //   const fullUrl = this.baseUrl.endsWith('/') ? this.baseUrl.slice(0, -1) : this.baseUrl;
+    //   const formattedPagePath = pagePath.startsWith('/') ? pagePath.slice(1) : pagePath;
+    //   const url = `${fullUrl}/${formattedPagePath}`;
+    //   cy.visit(url);
+    // }
+
     // Method to get the title of the current page
     getPageTitle() {
       return cy.title();
