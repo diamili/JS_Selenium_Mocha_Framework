@@ -37,6 +37,14 @@ export class BasePage {
     verifyElementContainsText(selector: string, text: string) {
       cy.get(selector).should('contain', text);
     }
+
+    getAllElements(selector: string) {
+      return cy.get(selector);
+    }
+
+    clickElement(selector: string){
+      cy.get(selector).click();
+    }
   
     // Other common methods can be added as needed
   }

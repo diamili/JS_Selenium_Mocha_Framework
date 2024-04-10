@@ -1,0 +1,4 @@
+{
+    "input-promo-email": ".email-recommend-input",
+    "input-promo-pass": "body > div.j-login-page-0 > div > div.sui-dialog.new-login-dialog.page__login-newDiaglog-container.page__login_newUI-Popcontainer > div.sui-dialog__ctn.sui-animation__dialog_W480 > div > div.sui-dialog__body > div > div.page__login_newUI > div.page__login-newUI-emailPannel > div.main-content > div:nth-child(2) > div > div > input"
+}

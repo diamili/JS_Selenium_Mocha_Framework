@@ -32,6 +32,7 @@ export class HeaderPage extends BasePage {
   existLogo(){
     cy.get(this.locators['logo']).should('exist');
   }
+
   // openUserProfileDropdown() {
   //   cy.get(this.userProfileDropdownSelector).click();
   // }
